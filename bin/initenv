@@ -1,0 +1,22 @@
+#!/bin/bash
+
+[[ -f ./.env ]] && rm ./.env
+if [[ $OSTYPE == 'darwin'* ]]; then
+    cp ./.env-mac ./.env
+else
+    if [[ -f ~/.config/environment/.env ]]; then
+        ln -sf ~/.config/environment/.env ./.env
+    else 
+        cp ./.env-linux ./.env
+    fi
+fi
+
+if [[ -f ~/.config/environment/mysql.env ]]; then
+    [[ -f ./env/mysql.env ]] && rm ./env/mysql.env
+    ln -sf ~/.config/environment/mysql.env ./env/mysql.env
+fi
+
+# if [[ -f ~/.config/code-server/launch.json ]]; then
+#     mkdir -p ./.vscode && ln -sf ~/.config/code-server/launch.json ./.vscode/launch.json
+#     mkdir -p ./src/.vscode && ln -sf ~/.config/code-server/src/launch.json ./src/.vscode/launch.json
+# fi

@@ -1,0 +1,31 @@
+version: '3.7'
+
+volumes:
+    dbdata:
+
+services:
+    app:
+        build:
+            context: images/odoo/16.0
+            args:
+                _UID: "${_UID:-1000}"
+                _GID: "${_GID:-1000}"
+        env_file: env/postgres.env
+        ports:
+            - "${FORWARD_HTTP_PORT:-80}:8069"
+        volumes:
+            - ./src/data:/var/lib/odoo
+            - ./src/addons:/mnt/extra-addons
+        environment:
+            - TZ=Asia/Ho_Chi_Minh
+        depends_on:
+            - db
+
+    db:
+        image: postgres:15
+        env_file: env/postgres.env
+        environment:
+            TZ: Asia/Ho_Chi_Minh
+        restart: always
+        volumes:
+            - dbdata:/var/lib/postgresql/data

@@ -1,0 +1,8 @@
+src/
+db/
+*.tz
+*.tar
+.idea
+.vscode
+
+.env
