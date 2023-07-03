@@ -1,14 +1,14 @@
 version: '3.7'
 
-adminer:
-    image: adminer:latest
-    ports:
-        - "${_CM_ENV_FORWARD_DBMA_PORT:-7070}:80"
-    env_file:
-        - env/db.env
-    links:
-        - db
-    environment:
-        ADMINER_DEFAULT_SERVER: db
-        ADMINER_DESIGN: galkaev
-        TZ: Asia/Ho_Chi_Minh
+services:
+    pgweb:
+        restart: always
+        image: sosedoff/pgweb
+        env_file: env/db.env
+        ports: 
+            - "${FORWARD_DBMA_PORT:-7070}:8081"
+        environment:
+            - DATABASE_URL=postgres://odoo:${POSTGRES_PASSWORD}@db:5432/odoo?sslmode=disable
+        links:
+            - db
+    

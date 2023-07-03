@@ -10,7 +10,7 @@ services:
             args:
                 _UID: "${_UID:-1000}"
                 _GID: "${_GID:-1000}"
-        env_file: env/postgres.env
+        env_file: env/db.env
         ports:
             - "${FORWARD_HTTP_PORT:-80}:8069"
         volumes:
@@ -23,7 +23,7 @@ services:
 
     db:
         image: postgres:15
-        env_file: env/postgres.env
+        env_file: env/db.env
         environment:
             TZ: Asia/Ho_Chi_Minh
         restart: always
