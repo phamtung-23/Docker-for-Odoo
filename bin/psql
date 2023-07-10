@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# shellcheck source=../env/db.env
+source env/db.env
+if [ -t 0 ]; then
+  # Need tty to run mysql shell
+  bin/pgcli psql -U "${POSTGRES_USER}" -d "${POSTGRES_USER}" "$@"
+else
+  # Read from stdin, ex: bin/mysql < dbdump.sql
+  bin/pgclinotty psql -U "${POSTGRES_USER}" -d "${POSTGRES_USER}" "$@"
+fi

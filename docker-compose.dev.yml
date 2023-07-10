@@ -2,7 +2,6 @@ version: '3.7'
 
 services:
     pgweb:
-        restart: always
         image: sosedoff/pgweb
         env_file: env/db.env
         ports: 

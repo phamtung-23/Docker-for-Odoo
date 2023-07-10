@@ -26,6 +26,5 @@ services:
         env_file: env/db.env
         environment:
             TZ: Asia/Ho_Chi_Minh
-        restart: always
         volumes:
             - dbdata:/var/lib/postgresql/data
