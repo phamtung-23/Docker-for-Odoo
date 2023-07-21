@@ -24,6 +24,8 @@ services:
     db:
         image: postgres:15
         env_file: env/db.env
+        ports:
+            - "${FORWARD_DB_PORT:-3306}:5432"
         environment:
             TZ: Asia/Ho_Chi_Minh
         volumes:
