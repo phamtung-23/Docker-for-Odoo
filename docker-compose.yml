@@ -11,13 +11,16 @@ services:
                 _UID: "${_UID:-1000}"
                 _GID: "${_GID:-1000}"
         env_file: env/db.env
+        # command: ["odoo", "-m ptvsd", "--host localhost", "--port 5678"]
         ports:
             - "${FORWARD_HTTP_PORT:-80}:8069"
+            - "${FORWARD_DEBUG_PORT:-9003}:5678"
         volumes:
             - ./data:/var/lib/odoo
             - ./addons:/mnt/extra-addons
         environment:
             - TZ=Asia/Ho_Chi_Minh
+            - IS_DEBUG=${IS_DEBUG:-false}
         depends_on:
             - db
 

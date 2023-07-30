@@ -15,3 +15,7 @@ if [[ -f ~/.config/environment/db.env ]]; then
     [[ -f ./env/db.env ]] && rm ./env/db.env
     ln -sf ~/.config/environment/db.env ./env/db.env
 fi
+
+if [[ -f ~/.config/code-server/launch.json ]]; then
+    mkdir -p ./.vscode && ln -sf ~/.config/code-server/launch.json ./.vscode/launch.json
+fi

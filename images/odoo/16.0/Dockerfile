@@ -38,7 +38,7 @@ RUN apt-get update && \
 ARG _UID=1000
 ARG _GID=1000
 RUN groupadd -g ${_GID} odoo || true \
-    && useradd -g "$(getent group $_GID | cut -d: -f1)" -u ${_UID} -d /var/www -s /bin/bash odoo
+    && useradd -g "$(getent group $_GID | cut -d: -f1)" -u ${_UID} -m -s /bin/bash odoo
 
 # install latest postgresql-client
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
@@ -90,5 +90,9 @@ COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 # Set default user when running the container
 USER odoo
 
+RUN pip3 install ptvsd
+
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
+# CMD exec /bin/bash -c "trap : TERM INT; sleep infinity & wait"
+# python3 -m ptvsd --host 0.0.0.0 --port 5678 /usr/bin/odoo --db_host db --db_port 5432 --db_user odoo --db_password ZDlkMmJkYjQ0NGR

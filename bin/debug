@@ -1,0 +1,53 @@
+#!/bin/bash
+
+export $(cat ./.env | xargs)
+
+debug_status() {
+    if [[ $IS_DEBUG == "false" ]]; then
+        echo "Debug mode is disabled."
+    else
+        echo "Debug mode is enabled."
+    fi
+}
+
+debug_toggle() {
+    if [[ $IS_DEBUG == "false" ]]; then
+        debug_enable
+    else
+        debug_disable
+    fi
+}
+
+debug_enable() {
+    if [[ $IS_DEBUG == "true" ]]; then
+        echo "Debug mode is already enabled."
+    else
+        sed -i 's/^IS_DEBUG=.*$/IS_DEBUG=true/' .env
+        bin/start app --build
+        echo "Debug mode has been enabled."
+    fi
+}
+
+debug_disable() {
+    if [[ $IS_DEBUG == "false" ]]; then
+        echo "Debug mode is already disabled."
+    else 
+        sed -i 's/^IS_DEBUG=.*$/IS_DEBUG=false/' .env
+        bin/start app --build
+        echo "Debug mode has been disabled."
+    fi
+}
+
+firstArgLetter="$(echo "$1" | head -c 1)"
+
+if [[ $firstArgLetter == "d" ]]; then
+    debug_disable
+elif [[ $firstArgLetter == "e" ]]; then
+    debug_enable
+elif [[ $firstArgLetter == "t" ]]; then
+    debug_toggle
+elif [[ $firstArgLetter == "s" ]]; then
+    debug_status
+else
+    printf "Please specify either 'disable', 'enable', 'status' or 'toggle' as an argument.\nEx: bin/debug status\n"
+fi

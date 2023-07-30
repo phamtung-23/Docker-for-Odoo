@@ -28,6 +28,8 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
+
+
 case "$1" in
     -- | odoo)
         shift
@@ -35,8 +37,11 @@ case "$1" in
             exec odoo "$@"
         else
             wait-for-psql.py ${DB_ARGS[@]} --timeout=30
-            echo "exec odoo "$@" "${DB_ARGS[@]}""
-            exec odoo "$@" "${DB_ARGS[@]}"
+            if [ $IS_DEBUG == "true" ]; then
+                exec python3 -m ptvsd --host 0.0.0.0 --port 5678 /usr/bin/odoo --db_host db --db_port 5432 --db_user odoo --db_password ZDlkMmJkYjQ0NGR
+            else
+                exec odoo "$@" "${DB_ARGS[@]}"
+            fi
         fi
         ;;
     -*)
