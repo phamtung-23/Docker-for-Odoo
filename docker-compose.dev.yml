@@ -6,7 +6,5 @@ services:
         env_file: env/db.env
         ports: 
             - "${FORWARD_DBMA_PORT:-7070}:8081"
-        environment:
-            - PGWEB_DATABASE_URL=postgres://odoo:${POSTGRES_PASSWORD}@db:5432/odoo?sslmode=disable
         links:
             - db
