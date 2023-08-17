@@ -38,7 +38,7 @@ case "$1" in
         else
             wait-for-psql.py ${DB_ARGS[@]} --timeout=30
             if [ $IS_DEBUG == "true" ]; then
-                exec python3 -m ptvsd --host 0.0.0.0 --port 5678 /usr/bin/odoo --db_host db --db_port 5432 --db_user odoo --db_password ZDlkMmJkYjQ0NGR
+                exec python3 -m ptvsd --host 0.0.0.0 --port 5678 /usr/bin/odoo "${DB_ARGS[@]}"
             else
                 exec odoo "$@" "${DB_ARGS[@]}"
             fi

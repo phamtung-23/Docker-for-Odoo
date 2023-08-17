@@ -33,7 +33,24 @@ RUN apt-get update && \
         python3-xlrd \
         python3-xlwt \
         xz-utils \
-        wkhtmltopdf
+        libc6 \
+        libgcc-s1 \
+        libqt5core5a \
+        libqt5gui5 \	
+        libqt5network5 \	
+        libqt5printsupport5 \	
+        libqt5svg5 \	
+        libqt5webkit5 \	
+        libqt5widgets5 \	
+        libstdc++6 \
+        xfonts-75dpi \
+        xfonts-base
+ 
+# Install wkhtmltopdf 0.12.6-1
+RUN apt-get update && apt-get install -y wget && \
+    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_arm64.deb && \
+    dpkg -i ./wkhtmltox_0.12.6-1.stretch_arm64.deb
+
 
 ARG _UID=1000
 ARG _GID=1000

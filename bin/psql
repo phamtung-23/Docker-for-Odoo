@@ -4,8 +4,8 @@
 source env/db.env
 if [ -t 0 ]; then
   # Need tty to run mysql shell
-  bin/pgcli psql -U "${POSTGRES_USER}" -d "${POSTGRES_USER}" "$@"
+  bin/pgcli psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "$@"
 else
   # Read from stdin, ex: bin/mysql < dbdump.sql
-  bin/pgclinotty psql -U "${POSTGRES_USER}" -d "${POSTGRES_USER}" "$@"
+  bin/pgclinotty psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "$@"
 fi
