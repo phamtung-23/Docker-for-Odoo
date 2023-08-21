@@ -19,3 +19,5 @@ fi
 if [[ -f ~/.config/code-server/launch.json ]]; then
     mkdir -p ./.vscode && ln -sf ~/.config/code-server/launch.json ./.vscode/launch.json
 fi
+
+mkdir -p ./data/postgresql ./data/odoo

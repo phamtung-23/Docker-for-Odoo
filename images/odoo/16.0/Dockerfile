@@ -6,6 +6,8 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
+ARG _ARCH=amd64
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -48,8 +50,8 @@ RUN apt-get update && \
  
 # Install wkhtmltopdf 0.12.6-1
 RUN apt-get update && apt-get install -y wget && \
-    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_arm64.deb && \
-    dpkg -i ./wkhtmltox_0.12.6-1.stretch_arm64.deb
+    wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_${_ARCH}.deb && \
+    dpkg -i ./wkhtmltox_0.12.6-1.stretch_${_ARCH}.deb
 
 
 ARG _UID=1000
