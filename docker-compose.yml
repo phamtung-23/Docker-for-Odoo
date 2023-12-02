@@ -3,7 +3,7 @@ version: '3.7'
 services:
     app:
         build:
-            context: images/odoo/16.0
+            context: images/odoo/17.0
             args:
                 _UID: "${_UID:-1000}"
                 _GID: "${_GID:-1000}"
@@ -17,7 +17,7 @@ services:
             - ./addons:/mnt/extra-addons
         environment:
             - TZ=Asia/Ho_Chi_Minh
-            - IS_DEBUG=${IS_DEBUG:-false}
+            # - IS_DEBUG=${IS_DEBUG:-false}
         links:
             - db
 
